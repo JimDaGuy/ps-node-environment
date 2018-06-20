@@ -4,7 +4,6 @@
   "description": "Node Environment based on Pluralsight Node tutorial",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "babel-node buildscripts/startMessages.js",
     "start": "npm-run-all --parallel security-check open:src lint:watch",
     "open:src": "babel-node buildscripts/srcServer.js",
@@ -12,7 +11,8 @@
     "lint:watch": "npm run lint -- --watch",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
-    "share": "npm-run-all --parallel open:src localtunnel"
+    "share": "npm-run-all --parallel open:src localtunnel",
+		"test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\""
   },
   "repository": {
     "type": "git",
