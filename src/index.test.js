@@ -15,9 +15,9 @@ describe('index.html', () => {
 		jsdom.env(index, function (err, window) {
 			const h1 = window.document.getElementsByTagName('h1')[0];
 			expect(h1.innerHTML).to.equal('Hello World!');
-		  // free memory associated with the window
+			//free memory associated with the window
 			done();
-		  window.close();
+			window.close();
 		});
 	});
 });

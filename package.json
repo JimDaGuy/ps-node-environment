@@ -5,15 +5,16 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node buildscripts/startMessages.js",
-    "start": "npm-run-all --parallel security-check open:src lint:watch",
+    "start": "npm-run-all --parallel security-check open:src lint:watch test:watch",
     "open:src": "babel-node buildscripts/srcServer.js",
     "lint": "esw webpack.config.* src buildscripts --color",
     "lint:watch": "npm run lint -- --watch",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-		"test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\""
-  },
+		"test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\"",
+		"test:watch": "npm run test -- --watch"
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JimDaGuy/ps-node-environment.git"
