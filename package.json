@@ -5,16 +5,23 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node buildscripts/startMessages.js",
-    "start": "npm-run-all --parallel security-check open:src lint:watch test:watch",
+    "start": "npm-run-all --parallel security-check open:src lint:watch test:watch start-mockapi",
     "open:src": "babel-node buildscripts/srcServer.js",
     "lint": "esw webpack.config.* src buildscripts --color",
     "lint:watch": "npm run lint -- --watch",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
     "share": "npm-run-all --parallel open:src localtunnel",
-		"test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\"",
-		"test:watch": "npm run test -- --watch"
-	},
+    "test": "mocha --reporter progress buildscripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch",
+    "generate-mock-data": "babel-node buildscripts/generateMockData",
+    "prestart-mockapi": "npm run generate-mock-data",
+    "start-mockapi": "json-server --watch src/api/db.json --port 3001",
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all clean-dist test lint",
+    "build": "babel-node buildscripts/build.js",
+    "postbuild": "babel-node buildscripts/distServer.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JimDaGuy/ps-node-environment.git"
@@ -26,6 +33,7 @@
   },
   "homepage": "https://github.com/JimDaGuy/ps-node-environment#readme",
   "dependencies": {
+    "faker": "^4.1.0",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
@@ -45,6 +53,7 @@
     "eslint-watch": "^3.1.2",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^3.2.0",
     "jsdom": "^11.2.0",
     "json-schema-faker": "^0.5.0-rc11",
     "json-server": "^0.12.0",

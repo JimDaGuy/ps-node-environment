@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 93181546,
+      "firstName": "Zoila",
+      "lastName": "Hackett",
+      "email": "Joe81@gmail.com"
+    },
+    {
+      "id": 9004980,
+      "firstName": "Gabe",
+      "lastName": "Buckridge",
+      "email": "Zoie_Streich52@yahoo.com"
+    },
+    {
+      "id": 26208964,
+      "firstName": "Pattie",
+      "lastName": "Gleason",
+      "email": "Bernardo24@gmail.com"
+    },
+    {
+      "id": 35496568,
+      "firstName": "Santiago",
+      "lastName": "Cole",
+      "email": "Royal.Lindgren@yahoo.com"
+    }
+  ]
+}
