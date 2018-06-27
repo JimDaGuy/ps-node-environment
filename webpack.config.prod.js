@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackMd5Hash from 'webpack-md5-hash';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   devtool: 'source-map',
@@ -12,14 +14,17 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].js'
+    filename: '[name].[chunkhash].js'
   },
   plugins: [
+		//Generate external CSS files with hash in filename
+		new ExtractTextPlugin('[name].[contenthash].css'),
+		//Hash files using MD5 so their names change when the content changes
+		new WebpackMd5Hash(),
 		//Plugin to create separate bundles and
 		//cache vendor code separately
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-			minChunks: Infinity,
+			name: 'vendor'
 		}),
 		//Create HTML file with reference to bundled js
 		new HtmlWebpackPlugin({
@@ -36,7 +41,8 @@ export default {
 				minifyCSS: true,
 				minifyURLs: true
 			},
-			inject: true
+			inject: true,
+			trackJSToken: '8e598a5bdff84620b892e6f53f5d83e2',
 		}),
 		new webpack.LoaderOptionsPlugin({
 			debug: true,
@@ -47,7 +53,7 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader']},
-      {test: /\.css$/, loaders: ['style-loader','css-loader']}
+      {test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader"})}
     ]
   },
 	devServer: {

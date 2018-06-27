@@ -1,6 +1,16 @@
+<!--
+Template for our dynamically generated index.html
+Technically an ejs file
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<% if (htmlWebpackPlugin.options.trackJSToken) { %>
+	<!-- BEGIN TRACKJS -->
+	<script type="text/javascript">window._trackJs = { token: '<%=htmlWebpackPlugin.options.trackJSToken%>' };</script>
+	<script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"></script>
+	<!-- END TRACKJS -->
+	<% } %>
 	<meta charset="utf-8">
 	<script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch"></script>
 </head>
