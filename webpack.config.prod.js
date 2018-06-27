@@ -24,7 +24,8 @@ export default {
 		//Plugin to create separate bundles and
 		//cache vendor code separately
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor'
+			name: 'vendor',
+			minChunks: Infinity
 		}),
 		//Create HTML file with reference to bundled js
 		new HtmlWebpackPlugin({
@@ -48,7 +49,9 @@ export default {
 			debug: true,
 		}),
 		//Minify JS
-		new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin({
+			sourceMap: true
+		})
 	],
   module: {
     loaders: [
